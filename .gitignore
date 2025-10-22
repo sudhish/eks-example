@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+.uv/
+
+# DBT
+dbt_project/target/
+dbt_project/dbt_packages/
+dbt_project/logs/
+
+# Data
+*.duckdb
+*.duckdb.wal
+data/
+*.db
+
+# Environment
+.env
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store

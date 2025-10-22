@@ -1,0 +1,74 @@
+version: 2
+
+sources:
+  - name: raw
+    description: Raw CDC data landed from Postgres
+    tables:
+      - name: customers_cdc
+        description: CDC feed from customers table
+        columns:
+          - name: customer_id
+            description: Primary key
+            tests:
+              - not_null
+          - name: email
+            description: Customer email
+            tests:
+              - not_null
+          - name: cdc_operation
+            description: CDC operation type (INSERT, UPDATE, DELETE)
+          - name: cdc_timestamp
+            description: When the CDC record was captured
+
+      - name: orders_cdc
+        description: CDC feed from orders table
+        columns:
+          - name: order_id
+            description: Primary key
+            tests:
+              - not_null
+          - name: customer_id
+            description: Foreign key to customers
+          - name: cdc_operation
+            description: CDC operation type
+          - name: cdc_timestamp
+            description: When the CDC record was captured
+
+      - name: order_items_cdc
+        description: CDC feed from order items table
+        columns:
+          - name: order_item_id
+            description: Primary key
+            tests:
+              - not_null
+          - name: order_id
+            description: Foreign key to orders
+          - name: cdc_operation
+            description: CDC operation type
+          - name: cdc_timestamp
+            description: When the CDC record was captured
+
+models:
+  - name: stg_customers
+    description: Staging view of customers with latest CDC state
+    columns:
+      - name: customer_id
+        description: Primary key
+        tests:
+          - unique
+          - not_null
+      - name: email
+        tests:
+          - not_null
+
+  - name: stg_orders
+    description: Staging view of orders with latest CDC state
+    columns:
+      - name: order_id
+        description: Primary key
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_order_items
+    description: Staging view of order items with latest CDC state

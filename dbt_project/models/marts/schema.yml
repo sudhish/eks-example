@@ -1,0 +1,47 @@
+version: 2
+
+models:
+  - name: dim_customers_scd2
+    description: Customer dimension table with SCD Type 2 (slowly changing dimension)
+    columns:
+      - name: customer_sk
+        description: Surrogate key for the customer dimension
+        tests:
+          - unique
+          - not_null
+      - name: customer_id
+        description: Natural key from source system
+        tests:
+          - not_null
+      - name: email
+        tests:
+          - not_null
+      - name: valid_from
+        description: Start date of this version
+      - name: valid_to
+        description: End date of this version (NULL for current)
+      - name: is_current
+        description: Flag indicating if this is the current version
+        tests:
+          - not_null
+
+  - name: fact_orders
+    description: Fact table for orders
+    columns:
+      - name: order_id
+        description: Primary key
+        tests:
+          - unique
+          - not_null
+      - name: customer_sk
+        description: Foreign key to customer dimension
+      - name: total_amount
+        description: Total order amount
+
+  - name: customer_order_summary
+    description: Aggregated customer order metrics
+    columns:
+      - name: customer_id
+        tests:
+          - unique
+          - not_null

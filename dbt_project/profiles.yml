@@ -1,0 +1,12 @@
+cdc_demo:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: /data/warehouse.duckdb
+      threads: 4
+      extensions:
+        - httpfs
+        - parquet
+      settings:
+        s3_region: us-east-1
