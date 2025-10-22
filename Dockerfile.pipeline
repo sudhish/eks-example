@@ -2,6 +2,10 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
+# Set environment variables for proper home directory
+ENV HOME=/home/appuser
+ENV DBT_PROFILES_DIR=/app/dbt_project
+
 # Install UV
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
 
@@ -19,7 +23,8 @@ COPY cdc_pipeline /app/cdc_pipeline
 COPY dbt_project /app/dbt_project
 COPY sql_scripts /app/sql_scripts
 
-# Create data directory
-RUN mkdir -p /data
+# Create necessary directories with proper permissions
+RUN mkdir -p /data /home/appuser/.dbt && \
+    chmod -R 777 /data /home/appuser
 
 CMD ["python", "/app/cdc_pipeline/orchestrator.py"]

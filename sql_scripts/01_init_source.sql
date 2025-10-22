@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS customers (
     email VARCHAR(255) UNIQUE NOT NULL,
     first_name VARCHAR(100),
     last_name VARCHAR(100),
-    phone VARCHAR(20),
+    phone VARCHAR(50),
     address TEXT,
     city VARCHAR(100),
     state VARCHAR(50),

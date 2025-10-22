@@ -66,7 +66,7 @@ dbt-shell: ## Open DBT shell (run SQL queries interactively)
 
 query: ## Run a quick query on the warehouse
 	@echo "Running sample queries..."
-	docker-compose run --rm pipeline python -c "import duckdb; conn = duckdb.connect('/data/warehouse.duckdb'); print('\n=== Top Customers ==='); print(conn.execute('SELECT customer_id, email, total_revenue FROM marts.customer_order_summary ORDER BY total_revenue DESC LIMIT 5').df()); conn.close()"
+	docker-compose run --rm pipeline python -c "import duckdb; conn = duckdb.connect('/data/warehouse.duckdb'); print('\n=== Top Customers ==='); print(conn.execute('SELECT customer_id, email, total_revenue FROM main_marts.customer_order_summary ORDER BY total_revenue DESC LIMIT 5').df()); conn.close()"
 
 generate-data: ## Generate sample data in Postgres
 	@echo "Generating sample data..."

@@ -190,7 +190,7 @@ def show_results(duckdb_path):
             total_orders,
             total_revenue,
             avg_order_value
-        FROM marts.customer_order_summary
+        FROM main_marts.customer_order_summary
         ORDER BY total_revenue DESC
         LIMIT 10
     """).fetchall()
@@ -209,10 +209,10 @@ def show_results(duckdb_path):
             valid_from,
             valid_to,
             is_current
-        FROM marts.dim_customers_scd2
+        FROM main_marts.dim_customers_scd2
         WHERE customer_id IN (
             SELECT customer_id
-            FROM marts.dim_customers_scd2
+            FROM main_marts.dim_customers_scd2
             GROUP BY customer_id
             HAVING COUNT(*) > 1
         )
