@@ -8,8 +8,11 @@ help: ## Show this help message
 
 setup: ## Setup project (copy .env file)
 	@echo "Setting up project..."
+	@mkdir -p data
+	@chmod 777 data
 	@cp -n .env.example .env || true
 	@echo "✓ .env file created (edit if needed)"
+	@echo "✓ data directory created"
 
 build: ## Build Docker images
 	@echo "Building Docker images..."
@@ -36,6 +39,7 @@ clean: ## Clean up data and volumes
 
 run-once: ## Run pipeline once (build, generate data, extract CDC, run DBT)
 	@echo "Running pipeline once..."
+	@mkdir -p data
 	docker-compose run --rm pipeline python /app/cdc_pipeline/orchestrator.py
 
 run-continuous: ## Run pipeline continuously

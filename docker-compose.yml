@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   postgres:
     image: postgres:16-alpine
@@ -24,6 +22,7 @@ services:
       context: .
       dockerfile: Dockerfile.pipeline
     container_name: dbt-cdc-pipeline
+    user: "${DOCKER_UID:-1000}:${DOCKER_GID:-1000}"
     depends_on:
       postgres:
         condition: service_healthy

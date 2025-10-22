@@ -430,6 +430,21 @@ Edit `cdc_pipeline/data_generator.py`:
 
 ## Troubleshooting
 
+### Permission Issues (macOS/Linux)
+
+If you encounter permission errors on the `data/` directory:
+
+```bash
+# The setup command now handles this automatically
+make setup
+
+# Or manually:
+mkdir -p data
+chmod 777 data
+```
+
+See [TROUBLESHOOTING.md](TROUBLESHOOTING.md) for detailed troubleshooting steps.
+
 ### Postgres Connection Issues
 ```bash
 # Check if Postgres is running
